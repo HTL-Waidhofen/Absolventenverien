@@ -1,0 +1,22 @@
+{
+  "name": "absolventenverein",
+  "version": "1.0.0",
+  "description": "Verwaltung für AV der HTL Waidhofen/Ybbs",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HTL-Waidhofen/Absolventenverien.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HTL-Waidhofen/Absolventenverien/issues"
+  },
+  "homepage": "https://github.com/HTL-Waidhofen/Absolventenverien#readme",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
