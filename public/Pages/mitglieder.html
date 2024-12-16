@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="../sneat-1.0.0/assets/vendor/css/theme-default.css"
     class="template-customizer-theme-css" />
 
+    
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="../sneat-1.0.0/assets/img/favicon/favicon.ico" />
 
@@ -66,46 +67,26 @@
             </button>
 
             <!-- Navbar-Inhalte -->
-            <div class="collapse navbar-collapse" id="navbarNav">
-              <ul class="navbar-nav">
-                <!-- Navigationslinks -->
-                <li class="nav-item">
-                  <a class="nav-link" href="rundschreiben.html">Rundschreiben</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="beitraege.html">Beiträge</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="mitglieder.html">Mitglieder</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="export_excel.html">Excel-Export</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="import_excel.html">Excel-Import</a>
-              </li>
-
-              </ul>
-
-              <!-- Rechte Seite der Navbar -->
-              <ul class="navbar-nav">
-                <!-- Profil oder Login -->
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="bx bx-user-circle"></i>
-                  </a>
-                  <ul class="dropdown-menu" aria-labelledby="profileDropdown">
-                    <li><a class="dropdown-item" href="profil.html">Mein Profil</a></li>
-                    <li><a class="dropdown-item" href="einstellungen.html">Einstellungen</a></li>
-                    <li>
-                      <hr class="dropdown-divider">
-                    </li>
-                    <li><a class="dropdown-item" href="logout.html">Abmelden</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </div>
+<div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+  <ul class="navbar-nav">
+    <!-- Navigationslinks -->
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Menu
+      </a>
+      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+        <li><a class="dropdown-item" href="rundschreiben.html">Rundschreiben</a></li>
+        <li><a class="dropdown-item" href="beitraege.html">Beiträge</a></li>
+        <li><a class="dropdown-item" href="mitglieder.html">Mitglieder</a></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item" href="export_excel.html">Excel-Export</a></li>
+        <li><a class="dropdown-item" href="import_excel.html">Excel-Import</a></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item" href="login.html">Abmelden</a></li>
+      </ul>
+    </li>
+  </ul>
+</div>
           </div>
         </nav>
         <!--/ Navbar -->
@@ -216,5 +197,27 @@
     </div>
   </div>
 </body>
-
+<style>
+  .dropdown-menu {
+    min-width: 200px;
+    padding: 0.5rem 0;
+    margin: 0;
+  }
+  
+  .dropdown-item {
+    padding: 0.5rem 1rem;
+  }
+  
+  .navbar-toggler {
+    padding: 0.25rem 0.5rem;
+    margin-right: 1rem;
+  }
+  
+  @media (max-width: 991.98px) {
+    .dropdown-menu {
+      position: absolute;
+      right: 0;
+    }
+  }
+  </style>
 </html>
