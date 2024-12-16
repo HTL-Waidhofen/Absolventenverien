@@ -1,47 +1,54 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
-const initialDb = require('./db'); 
 const mysql = require('mysql2');
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(bodyParser.json());
+// Middleware to parse form data
 app.use(bodyParser.urlencoded({ extended: true }));
 
-let db = initialDb;
-
-/// Serve static files from the "public" directory
+// Serve static files from the "public" directory
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Serve the login page for all routes (fallback if no other static content matches)
+// Route to handle login
+app.post('/login', (req, res) => {
+  const { username, password } = req.body;
+
+  // Log the received username and password for debugging
+  console.log('Received username:', username);
+  console.log('Received password:', password);
+
+  // Create a MySQL database connection using the provided username and password
+  const db = mysql.createConnection({
+    host: 'localhost',
+    user: username,  // The username from the login form
+    password: password,  // The password from the login form
+    database: 'absolventenverein',  // Your database name
+  });
+
+  // Try to connect to the database
+  db.connect((err) => {
+    if (err) {
+      console.error('Error connecting to the database:', err);
+      res.status(500).send('Failed to connect to the database');
+      return;
+    }
+
+    // If the connection is successful, redirect to mitglieder.html
+    console.log('Connected to the database successfully!');
+    res.redirect('/Pages/mitglieder.html');
+  });
+});
+
+// Serve the main HTML file for all routes
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'Pages', 'login.html'));
 });
 
-// Login endpoint
-app.post('/login', (req, res) => {
-  const { username, password } = req.body;
-
-  if (username === 'AV_User' && password === 'sn') {
-    db = mysql.createConnection({
-      host: 'localhost',
-      user: 'AV_User',
-      password: 'sn',
-      database: 'absolventenverein'
-    });
-
-    db.connect((err) => {
-      if (err) {
-        res.status(500).send('Failed to connect as AV_User');
-      } else {
-        res.send('Logged in successfully as AV_User');
-      }
-    });
-  } else {
-    res.status(401).send('Invalid credentials');
-  }
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
 });
 
 // CRUD operations for t_absolvent
@@ -118,16 +125,6 @@ app.put('/versand/:id', (req, res) => {
   });
 });
 
-// Delete a versand
-app.delete('/versand/:id', (req, res) => {
-  const { id } = req.params;
-  const query = 'DELETE FROM t_versand WHERE FK_fortlaufendeNr = ?';
-  db.query(query, [id], (err, result) => {
-    if (err) throw err;
-    res.send('Versand deleted successfully');
-  });
-});
-
 // CRUD operations for t_einzahlung
 
 // Create a new einzahlung
@@ -146,27 +143,6 @@ app.get('/einzahlung', (req, res) => {
   db.query(query, (err, results) => {
     if (err) throw err;
     res.json(results);
-  });
-});
-
-// Update an einzahlung
-app.put('/einzahlung/:id/:datum', (req, res) => {
-  const { id, datum } = req.params;
-  const { betrag } = req.body;
-  const query = 'UPDATE t_einzahlung SET betrag = ? WHERE FK_fortlaufendeNr = ? AND datum = ?';
-  db.query(query, [betrag, id, datum], (err, result) => {
-    if (err) throw err;
-    res.send('Einzahlung updated successfully');
-  });
-});
-
-// Delete an einzahlung
-app.delete('/einzahlung/:id/:datum', (req, res) => {
-  const { id, datum } = req.params;
-  const query = 'DELETE FROM t_einzahlung WHERE FK_fortlaufendeNr = ? AND datum = ?';
-  db.query(query, [id, datum], (err, result) => {
-    if (err) throw err;
-    res.send('Einzahlung deleted successfully');
   });
 });
 
@@ -200,23 +176,4 @@ app.put('/abschluss/:id/:jahr', (req, res) => {
     if (err) throw err;
     res.send('Abschluss updated successfully');
   });
-});
-
-// Delete an abschluss
-app.delete('/abschluss/:id/:jahr', (req, res) => {
-  const { id, jahr } = req.params;
-  const query = 'DELETE FROM t_abschluss WHERE FK_fortlaufendeNr = ? AND abschlussjahr = ?';
-  db.query(query, [id, jahr], (err, result) => {
-    if (err) throw err;
-    res.send('Abschluss deleted successfully');
-  });
-});
-
-// Serve the main HTML file for all routes
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'Pages/login.html'));
-});
-
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
 });
