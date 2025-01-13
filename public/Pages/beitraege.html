@@ -54,46 +54,38 @@
                 <!-- Navbar -->
                 <nav class="layout-navbar navbar navbar-expand-xl align-items-center bg-navbar-theme" id="layout-navbar">
                     <div class="container-fluid">
-                        <!-- Markenname und Logo -->
-                        <a class="navbar-brand" href="#">
-                            <img src="Logo_HTL.svg" alt="Logo" height="30">
-                        </a>
-
-                        <!-- Toggle-Button für kleine Bildschirme -->
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-
-                        <!-- Navbar-Inhalte -->
-                        <div class="collapse navbar-collapse" id="navbarNav">
-                            <ul class="navbar-nav">
-                                <!-- Navigationslinks -->
-                                <li class="nav-item">
-                                    <a class="nav-link" href="rundschreiben.html">Rundschreiben</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="beitraege.html">Beiträge</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="mitglieder.html">Mitglieder</a>
-                                </li>
-                                <li class="nav-item">
-                                        <a class="nav-link" href="export_excel.html">Excel-Export</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="import_excel.html">Excel-Import</a>
-                            </li>
-                        </ul>
-                            <!-- Rechte Seite der Navbar -->
-                            <!-- Rechte Seite der Navbar -->
-                            <ul class="navbar-nav">
-                                <!-- Profil oder Login -->
-                                <li class="nav-item">
-                                <a class="nav-link" href="login.html">Abmelden</a>
-                                </li>
+                    <!-- Markenname und Logo -->
+                    <a class="navbar-brand" href="#">
+                        <img src="Logo_HTL.svg" alt="Logo" height="30">
+                    </a>
+        
+                    <!-- Toggle-Button für kleine Bildschirme -->
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+        
+                    <!-- Navbar-Inhalte -->
+                    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                        <ul class="navbar-nav">
+                        <!-- Navigationslinks -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Menu
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="rundschreiben.html">Rundschreiben</a></li>
+                            <li><a class="dropdown-item" href="beitraege.html">Beiträge</a></li>
+                            <li><a class="dropdown-item" href="mitglieder.html">Mitglieder</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="export_excel.html">Excel-Export</a></li>
+                            <li><a class="dropdown-item" href="import_excel.html">Excel-Import</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="login.html">Abmelden</a></li>
                             </ul>
-                        </div>
+                        </li>
+                        </ul>
+                    </div>
                     </div>
                 </nav>
                 <!--/ Navbar -->
