@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <title>Excel-Import</title>
   <link rel="stylesheet" href="../sneat-1.0.0/assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
-  <link rel="icon" type="image/x-icon" href="../sneat-1.0.0/assets/img/favicon/favicon.ico" />
+  <link rel="icon" type="image/png" href="Logo_HTL.svg" />
   <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../sneat-1.0.0/assets/vendor/fonts/boxicons.css" />
   <link rel="stylesheet" href="../sneat-1.0.0/assets/vendor/css/core.css" />
@@ -24,40 +24,44 @@
     <div class="layout-container">
       <!-- Layout page -->
       <div class="layout-page">
-        <!-- Navbar -->
-        <nav class="layout-navbar navbar navbar-expand-xl bg-navbar-theme" id="layout-navbar">
-          <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-              <img src="Logo_HTL.svg" alt="Logo" height="30">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="true" aria-label="Toggle navigation">
-              <div class="navbar-toggler-icon"></div>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-              <ul class="navbar-nav">
-                <li class="nav-item"><a class="nav-link" href="rundschreiben.html">Rundschreiben</a></li>
-                <li class="nav-item"><a class="nav-link" href="beitraege.html">Beiträge</a></li>
-                <li class="nav-item"><a class="nav-link" href="mitglieder.html">Mitglieder</a></li>
-                <li class="nav-item"><a class="nav-link" href="export_excel.html">Excel-Export</a></li>
-                <li class="nav-item"><a class="nav-link active" href="import_excel.html">Excel-Import</a></li>
-              </ul>
-              <ul class="navbar-nav">
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="bx bx-user-circle"></i>
-                  </a>
-                  <ul class="dropdown-menu" aria-labelledby="profileDropdown">
-                    <li><a class="dropdown-item" href="profil.html">Mein Profil</a></li>
-                    <li><a class="dropdown-item" href="einstellungen.html">Einstellungen</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="logout.html">Abmelden</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </div>
+       <!-- Navbar -->
+       <nav class="layout-navbar navbar navbar-expand-xl align-items-center bg-navbar-theme" id="layout-navbar">
+        <div class="container-fluid">
+          <!-- Markenname und Logo -->
+          <a class="navbar-brand" href="#">
+            <img src="Logo_HTL.svg" alt="Logo" height="30">
+          </a>
+
+          <!-- Toggle-Button für kleine Bildschirme -->
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <!-- Navbar-Inhalte -->
+          <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+              <!-- Navigationslinks -->
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Menu
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="rundschreiben.html">Rundschreiben</a></li>
+                  <li><a class="dropdown-item" href="beitraege.html">Beiträge</a></li>
+                  <li><a class="dropdown-item" href="mitglieder.html">Mitglieder</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="export_excel.html">Excel-Export</a></li>
+                  <li><a class="dropdown-item" href="import_excel.html">Excel-Import</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="login.html">Abmelden</a></li>
+                </ul>
+              </li>
+            </ul>
           </div>
-        </nav>
-        <!--/ Navbar -->
+        </div>
+      </nav>
+      <!--/ Navbar -->
 
         <!-- Content wrapper -->
         <div class="content-wrapper">
@@ -75,9 +79,12 @@
                   <table class="table table-bordered">
                     <thead class="table-light">
                       <tr>
-                        <th>Stunde</th>
-                        <th>Datum</th>
-                        <th>Lehrstoff</th>
+                        <th>Klasse</th>
+                        <th>Zuname</th>
+                        <th>Vorname</th>
+                        <th>Heim-PLZ</th>
+                        <th>Heim-Ort</th>
+                        <th>Heim-Straße</th>
                       </tr>
                     </thead>
                     <tbody id="tableBody">
@@ -109,51 +116,53 @@
     const uploadButton = document.getElementById('uploadToDb');
 
     fileInput.addEventListener('change', async (e) => {
-      const file = e.target.files[0];
-      if (!file) return;
+  const file = e.target.files[0];
+  if (!file) return;
 
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const data = new Uint8Array(event.target.result);
-        const workbook = XLSX.read(data, { type: 'array' });
+  const reader = new FileReader();
+  reader.onload = (event) => {
+    const data = new Uint8Array(event.target.result);
+    const workbook = XLSX.read(data, { type: 'array' });
 
-        const sheetName = workbook.SheetNames[0];
-        const worksheet = workbook.Sheets[sheetName];
-        const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+    const sheetName = workbook.SheetNames[0];
+    const worksheet = workbook.Sheets[sheetName];
+    const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
 
-        tableBody.innerHTML = '';
+    tableBody.innerHTML = ''; // Leere Tabelle zurücksetzen
+    let error = false;
 
-        jsonData.slice(1).forEach((row) => {
-          if (row.length >= 3) {
-            const [stunde, excelDatum, lehrstoff] = row;
-            const korrektesDatum = formatExcelDate(excelDatum);
-            tableBody.innerHTML += `
-              <tr>
-                <td>${stunde || ''}</td>
-                <td>${korrektesDatum || ''}</td>
-                <td>${lehrstoff || ''}</td>
-              </tr>
-            `;
-          }
-        });
+    jsonData.slice(1).forEach((row, index) => {
+      if (row.length >= 6) { 
+        // Lese Daten aus der Zeile
+        const [klasse, zuname, vorname, heimPlz, heimOrt, heimStr] = row;
 
-        uploadButton.disabled = false;
-      };
-
-      reader.readAsArrayBuffer(file);
+        // Füge Daten zur Tabelle hinzu
+        tableBody.innerHTML += `
+          <tr>
+            <td>${klasse || ''}</td>
+            <td>${zuname || ''}</td>
+            <td>${vorname || ''}</td>
+            <td>${heimPlz || ''}</td>
+            <td>${heimOrt || ''}</td>
+            <td>${heimStr || ''}</td>
+          </tr>
+        `;
+      } else {
+        error = true;
+        console.error(`Zeile ${index + 2} hat weniger als 6 Spalten:`, row);
+      }
     });
 
-    function formatExcelDate(excelDate) {
-      if (!excelDate) return '';
-      const excelStartDate = new Date(1899, 11, 30);
-      const date = new Date(excelStartDate.getTime() + (excelDate - 1) * 86400000);
-      return date.toLocaleDateString('de-DE', { day: '2-digit', month: 'short', year: 'numeric' });
+    if (error) {
+      alert('Einige Zeilen in der Datei haben weniger als 6 Spalten. Bitte überprüfen Sie die Daten.');
     }
 
-    uploadButton.addEventListener('click', () => {
-      alert('Daten erfolgreich hochgeladen!');
-    });
-  </script>
-</body>
+    uploadButton.disabled = !jsonData.length;
+  };
 
+  reader.readAsArrayBuffer(file);
+});
+</script>
+
+</body>
 </html>

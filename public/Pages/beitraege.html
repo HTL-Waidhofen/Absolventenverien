@@ -9,8 +9,8 @@
         class="template-customizer-theme-css" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="../sneat-1.0.0/assets/img/favicon/favicon.ico" />
-
+    <link rel="icon" type="image/png" href="Logo_HTL.svg" />
+    
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -54,58 +54,38 @@
                 <!-- Navbar -->
                 <nav class="layout-navbar navbar navbar-expand-xl align-items-center bg-navbar-theme" id="layout-navbar">
                     <div class="container-fluid">
-                        <!-- Markenname und Logo -->
-                        <a class="navbar-brand" href="#">
-                            <img src="Logo_HTL.svg" alt="Logo" height="30">
-                        </a>
-
-                        <!-- Toggle-Button für kleine Bildschirme -->
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-
-                        <!-- Navbar-Inhalte -->
-                        <div class="collapse navbar-collapse" id="navbarNav">
-                            <ul class="navbar-nav">
-                                <!-- Navigationslinks -->
-                                <li class="nav-item">
-                                    <a class="nav-link" href="rundschreiben.html">Rundschreiben</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="beitraege.html">Beiträge</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="mitglieder.html">Mitglieder</a>
-                                </li>
-                                <li class="nav-item">
-                                        <a class="nav-link" href="export_excel.html">Excel-Export</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="import_excel.html">Excel-Import</a>
-                            </li>
-
+                    <!-- Markenname und Logo -->
+                    <a class="navbar-brand" href="#">
+                        <img src="Logo_HTL.svg" alt="Logo" height="30">
+                    </a>
+        
+                    <!-- Toggle-Button für kleine Bildschirme -->
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+        
+                    <!-- Navbar-Inhalte -->
+                    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                        <ul class="navbar-nav">
+                        <!-- Navigationslinks -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Menu
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="rundschreiben.html">Rundschreiben</a></li>
+                            <li><a class="dropdown-item" href="beitraege.html">Beiträge</a></li>
+                            <li><a class="dropdown-item" href="mitglieder.html">Mitglieder</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="export_excel.html">Excel-Export</a></li>
+                            <li><a class="dropdown-item" href="import_excel.html">Excel-Import</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="login.html">Abmelden</a></li>
                             </ul>
-
-                            <!-- Rechte Seite der Navbar -->
-                            <ul class="navbar-nav">
-                                <!-- Profil oder Login -->
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button"
-                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="bx bx-user-circle"></i>
-                                    </a>
-                                    <ul class="dropdown-menu" aria-labelledby="profileDropdown">
-                                        <li><a class="dropdown-item" href="profil.html">Mein Profil</a></li>
-                                        <li><a class="dropdown-item" href="einstellungen.html">Einstellungen</a></li>
-                                        <li>
-                                            <hr class="dropdown-divider">
-                                        </li>
-                                        <li><a class="dropdown-item" href="logout.html">Abmelden</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
+                        </li>
+                        </ul>
+                    </div>
                     </div>
                 </nav>
                 <!--/ Navbar -->
