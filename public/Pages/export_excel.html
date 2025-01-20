@@ -106,7 +106,7 @@
                     <!-- Linke Spalte -->
                     <div class="col-md-6">
                         <div class="form-section">
-                        <h5>Filter Persönliche Daten</h5>
+                        <h5>Persönliche Daten</h5>
                         <form id="filterForm">
                             <div class="mb-3">
                                 <label for="nachname" class="form-label">Nachname</label>
@@ -131,7 +131,7 @@
                     <!-- Mittlere Spalte -->
                     <div class="col-md-6">
                         <div class="form-section">
-                        <h5>Filter Mitgliedsdaten</h5>
+                        <h5>Mitgliedsdaten</h5>
                         <div class="mb-3">
                             <label for="laufendeNr" class="form-label">Laufende Nr</label>
                             <input type="text" class="form-control" id="laufendeNr" name="laufendeNr" placeholder="Laufende Nr">
@@ -145,19 +145,24 @@
                             <input type="text" class="form-control" id="abschlussjahr" name="abschlussjahr" placeholder="Abschlussjahr">
                         </div>
                         <div class="mb-3">
+                          <label for="abschlussklasse" class="form-label">Abschlussklasse</label>
+                          <input type="text" class="form-control" id="abschlussklasse" name="abschlussklasse" placeholder="Abschlussklasse">
+                      </div>
+                        <div class="mb-3">
                             <label for="abschlussTyp" class="form-label">Abschlusstyp</label>
                             <select class="form-select" id="abschlussTyp" name="abschlussTyp">
                             <option value="hoehere">Höhere</option>
-                            <option value="abbrecher">Abbrecher</option>
+                            <option value="fs">Fachschule</option>
+                            <option value="aufbau">Aufbaulehrgang</option>
                             </select>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="zahlung" id="unbezahlt" value="unbezahlt" checked>
-                            <label class="form-check-label" for="unbezahlt">Unbezahlt</label>
+                            <label class="form-check-label" for="unbezahlt">unbezahlt</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="zahlung" id="abbrecher" value="abbrecher">
-                            <label class="form-check-label" for="abbrecher">Abbrecher</label>
+                            <input class="form-check-input" type="radio" name="zahlung" id="abbrecher" value="verstorben">
+                            <label class="form-check-label" for="verstorben">verstorben</label>
                         </div>
                     </div>
                     </div>
