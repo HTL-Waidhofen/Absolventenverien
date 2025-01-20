@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="de" class="light-style layout-navbar-fixed layout-menu-fixed " dir="ltr" data-theme="theme-default"
+  data-assets-path="../../assets/" data-template="vertical-menu-template-starter">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Excel-Export</title>
+  <link rel="stylesheet" href="../sneat-1.0.0/assets/vendor/css/theme-default.css"
+    class="template-customizer-theme-css" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="Logo_HTL.svg" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700&display=swap"
+    rel="stylesheet">
+
+  <!-- Icons. Uncomment required icon fonts -->
+  <link rel="stylesheet" href="../sneat-1.0.0/assets/vendor/fonts/boxicons.css" />
+
+  <!-- Core CSS -->
+  <link rel="stylesheet" href="../sneat-1.0.0/assets/vendor/css/core.css" />
+  <link rel="stylesheet" href="../sneat-1.0.0/assets/vendor/css/theme-default.css" />
+  <link rel="stylesheet" href="../sneat-1.0.0/assets/css/demo.css" />
+
+  <!-- Vendors CSS -->
+  <link rel="stylesheet" href="../sneat-1.0.0/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+
+  <!-- Helpers -->
+  <script src="../sneat-1.0.0/assets/vendor/js/helpers.js"></script>
+
+  <!-- Config -->
+  <script src="../sneat-1.0.0/assets/js/config.js"></script>
+
+  <style>
+   
+  </style>
+</head>
+
+<body>
+  <!-- Core JS -->
+  <script src="../sneat-1.0.0/assets/vendor/libs/jquery/jquery.js"></script>
+  <script src="../sneat-1.0.0/assets/vendor/libs/popper/popper.js"></script>
+  <script src="../sneat-1.0.0/assets/vendor/js/bootstrap.js"></script>
+  <script src="../sneat-1.0.0/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+  <!-- Layout wrapper -->
+  <div class="layout-wrapper layout-without-menu">
+
+    <!-- Layout container -->
+    <div class="layout-container">
+
+      <!-- Layout page -->
+      <div class="layout-page">
+
+       <!-- Navbar -->
+       <nav class="layout-navbar navbar navbar-expand-xl align-items-center bg-navbar-theme" id="layout-navbar">
+        <div class="container-fluid">
+          <!-- Markenname und Logo -->
+          <a class="navbar-brand" href="#">
+            <img src="Logo_HTL.svg" alt="Logo" height="30">
+          </a>
+
+          <!-- Toggle-Button für kleine Bildschirme -->
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <!-- Navbar-Inhalte -->
+          <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+              <!-- Navigationslinks -->
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Menu
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="rundschreiben.html">Rundschreiben</a></li>
+                  <li><a class="dropdown-item" href="beitraege.html">Beiträge</a></li>
+                  <li><a class="dropdown-item" href="mitglieder.html">Mitglieder</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="export_excel.html">Excel-Export</a></li>
+                  <li><a class="dropdown-item" href="import_excel.html">Excel-Import</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="login.html">Abmelden</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <!--/ Navbar -->
+
+        <!-- Content wrapper -->
+        <div class="content-wrapper">
+
+            <!-- Content -->
+            <div class="container-xxl flex-grow-1 container-p-y">
+
+                <!-- Form Section -->
+                <div class="container mt-4">
+                    <div class="row g-3">
+                    <!-- Linke Spalte -->
+                    <div class="col-md-6">
+                        <div class="form-section">
+                        <h5>Persönliche Daten</h5>
+                        <form id="filterForm">
+                            <div class="mb-3">
+                                <label for="nachname" class="form-label">Nachname</label>
+                                <input type="text" class="form-control" id="nachname" name="nachname" placeholder="Nachname">
+                            </div>
+                            <div class="mb-3">
+                                <label for="vorname" class="form-label">Vorname</label>
+                                <input type="text" class="form-control" id="vorname" name="vorname" placeholder="Vorname">
+                            </div>
+                            <div class="mb-3">
+                                <label for="plz" class="form-label">PLZ</label>
+                                <input type="text" class="form-control" id="plz" name="plz" placeholder="PLZ">
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">E-Mail</label>
+                                <input type="email" class="form-control" id="email" name="email" placeholder="E-Mail">
+                            </div>
+                        </form>
+                        </div>
+                    </div>
+
+                    <!-- Mittlere Spalte -->
+                    <div class="col-md-6">
+                        <div class="form-section">
+                        <h5>Mitgliedsdaten</h5>
+                        <div class="mb-3">
+                            <label for="laufendeNr" class="form-label">Laufende Nr</label>
+                            <input type="text" class="form-control" id="laufendeNr" name="laufendeNr" placeholder="Laufende Nr">
+                        </div>
+                        <div class="mb-3">
+                            <label for="erlagschein" class="form-label">Erlagschein Nr</label>
+                            <input type="text" class="form-control" id="erlagschein" name="erlagschein" placeholder="Erlagschein Nr">
+                        </div>
+                        <div class="mb-3">
+                            <label for="abschlussjahr" class="form-label">Abschlussjahr</label>
+                            <input type="text" class="form-control" id="abschlussjahr" name="abschlussjahr" placeholder="Abschlussjahr">
+                        </div>
+                        <div class="mb-3">
+                          <label for="abschlussklasse" class="form-label">Abschlussklasse</label>
+                          <input type="text" class="form-control" id="abschlussklasse" name="abschlussklasse" placeholder="Abschlussklasse">
+                      </div>
+                        <div class="mb-3">
+                            <label for="abschlussTyp" class="form-label">Abschlusstyp</label>
+                            <select class="form-select" id="abschlussTyp" name="abschlussTyp">
+                            <option value="hoehere">Höhere</option>
+                            <option value="fs">Fachschule</option>
+                            <option value="aufbau">Aufbaulehrgang</option>
+                            </select>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="zahlung" id="unbezahlt" value="unbezahlt" checked>
+                            <label class="form-check-label" for="unbezahlt">unbezahlt</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="zahlung" id="abbrecher" value="verstorben">
+                            <label class="form-check-label" for="verstorben">verstorben</label>
+                        </div>
+                    </div>
+                    </div>
+
+                    <!-- Datenbank Darstellung -->
+                    <div class="db-section mt-4">
+                      <h5>Gefilterte Ergebnisse</h5>
+                      <div style="height: 300px; background-color: #d3d3d3; border-radius: 5px;"></div>
+                      <button class="btn btn-primary mt-3" onclick="exportToExcel()">Export to Excel</button>
+                    </div>
+                </div>
+            </div>
+            <!--/ Content -->
+          <!-- Footer -->
+          <footer class="content-footer footer bg-footer-theme"></footer>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+  <script>
+    function filterMitglieder() {
+      // Implement the filtering logic here
+      alert('Filter function not implemented yet.');
+    }
+
+    function exportToExcel() {
+      // Dummy data for demonstration
+      const data = [
+        ["Nachname", "Vorname", "PLZ", "E-Mail", "Laufende Nr", "Erlagschein Nr", "Abschlussjahr", "Abschlusstyp", "Zahlung", "Vermerk"],
+        ["Mustermann", "Max", "12345", "max@mustermann.de", "1", "1001", "2020", "Höhere", "Unbezahlt", "Keine"]
+      ];
+
+      const ws = XLSX.utils.aoa_to_sheet(data);
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, "Gefilterte Ergebnisse");
+
+      XLSX.writeFile(wb, "Gefilterte_Ergebnisse.xlsx");
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="de" class="light-style layout-navbar-fixed layout-menu-fixed" dir="ltr" data-theme="theme-default"
+  data-assets-path="../../assets/" data-template="vertical-menu-template-starter">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rundschreiben</title>
+
+  <link rel="stylesheet" href="../sneat-1.0.0/assets/vendor/css/theme-default.css"
+    class="template-customizer-theme-css" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="Logo_HTL.svg" />
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700&display=swap"
+    rel="stylesheet">
+
+  <!-- Icons. Uncomment required icon fonts -->
+  <link rel="stylesheet" href="../sneat-1.0.0/assets/vendor/fonts/boxicons.css" />
+
+  <!-- Core CSS -->
+  <link rel="stylesheet" href="../sneat-1.0.0/assets/vendor/css/core.css" />
+  <link rel="stylesheet" href="../sneat-1.0.0/assets/vendor/css/theme-default.css" />
+  <link rel="stylesheet" href="../sneat-1.0.0/assets/css/demo.css" />
+
+  <!-- Vendors CSS -->
+  <link rel="stylesheet" href="../sneat-1.0.0/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+
+  <!-- Helpers -->
+  <script src="../sneat-1.0.0/assets/vendor/js/helpers.js"></script>
+
+  <!-- Config -->
+  <script src="../sneat-1.0.0/assets/js/config.js"></script>
+
+  <!-- Custom CSS to remove blue background -->
+  <style>
+    .no-bg {
+      background-color: transparent !important;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Layout wrapper -->
+  <div class="layout-wrapper layout-without-menu">
+    <div class="layout-container">
+      <!-- Layout page -->
+      <div class="layout-page">
+
+       <!-- Navbar -->
+       <nav class="layout-navbar navbar navbar-expand-xl align-items-center bg-navbar-theme" id="layout-navbar">
+        <div class="container-fluid">
+          <!-- Markenname und Logo -->
+          <a class="navbar-brand" href="#">
+            <img src="Logo_HTL.svg" alt="Logo" height="30">
+          </a>
+
+          <!-- Toggle-Button für kleine Bildschirme -->
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <!-- Navbar-Inhalte -->
+          <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+              <!-- Navigationslinks -->
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Menu
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="rundschreiben.html">Rundschreiben</a></li>
+                  <li><a class="dropdown-item" href="beitraege.html">Beiträge</a></li>
+                  <li><a class="dropdown-item" href="mitglieder.html">Mitglieder</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="export_excel.html">Excel-Export</a></li>
+                  <li><a class="dropdown-item" href="import_excel.html">Excel-Import</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="login.html">Abmelden</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <!--/ Navbar -->
+
+        <!-- Content -->
+        <div class="content-wrapper">
+          <div class="container-xxl flex-grow-1 container-p-y">
+            <div class="card shadow">
+              <div class="card-header text-center text-white">
+                <h3>Rundschreiben erstellen</h3>
+              </div>
+              <div class="card-body">
+                <form id="newsletterForm">
+                  <div class="mb-3">
+                    <label for="recipients" class="form-label">Empfänger-E-Mails (kommagetrennt):</label>
+                    <input type="email" class="form-control" id="recipients" placeholder="beispiel1@example.com, beispiel2@example.com" required multiple>
+                  </div>
+                  <div class="mb-3">
+                    <label for="bccRecipients" class="form-label">BCC-Empfänger (kommagetrennt):</label>
+                    <input type="email" class="form-control" id="bccRecipients" placeholder="bcc1@example.com, bcc2@example.com" multiple>
+                  </div>
+                  <div class="mb-3">
+                    <label for="subject" class="form-label">Betreff:</label>
+                    <input type="text" class="form-control" id="subject" placeholder="Betreff des Rundschreibens" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="message" class="form-label">Nachricht:</label>
+                    <textarea class="form-control" id="message" rows="6" placeholder="Ihre Nachricht hier..." required></textarea>
+                  </div>
+                  <div class="mb-3">
+                    <label for="fileUpload" class="form-label">Datei hochladen:</label>
+                    <input type="file" class="form-control" id="fileUpload">
+                  </div>
+                  <button type="button" class="btn btn-primary w-100" onclick="sendNewsletter()">Rundschreiben senden</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /Content -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Core JS -->
+  <script src="../sneat-1.0.0/assets/vendor/libs/jquery/jquery.js"></script>
+  <script src="../sneat-1.0.0/assets/vendor/libs/popper/popper.js"></script>
+  <script src="../sneat-1.0.0/assets/vendor/js/bootstrap.js"></script>
+  <script src="../sneat-1.0.0/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+  <script>
+    function sendNewsletter() {
+      const recipients = document.getElementById("recipients").value;
+      const bccRecipients = document.getElementById("bccRecipients").value;
+      const subject = document.getElementById("subject").value;
+      const message = document.getElementById("message").value;
+
+      if (recipients && subject && message) {
+        let mailtoLink = `mailto:${recipients}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
+        if (bccRecipients) {
+          mailtoLink += `&bcc=${bccRecipients}`;
+        }
+        window.location.href = mailtoLink;
+      } else {
+        alert("Bitte füllen Sie alle Pflichtfelder aus, bevor Sie senden.");
+      }
+    }
+  </script>
+</body>
+
+</html>

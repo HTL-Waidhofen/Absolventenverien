@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="de" class="light-style layout-navbar-fixed layout-menu-fixed" dir="ltr" data-theme="theme-default"
+  data-assets-path="../../assets/" data-template="vertical-menu-template-starter">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Excel-Import</title>
+  <link rel="stylesheet" href="../sneat-1.0.0/assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
+  <link rel="icon" type="image/png" href="Logo_HTL.svg" />
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../sneat-1.0.0/assets/vendor/fonts/boxicons.css" />
+  <link rel="stylesheet" href="../sneat-1.0.0/assets/vendor/css/core.css" />
+  <link rel="stylesheet" href="../sneat-1.0.0/assets/vendor/css/theme-default.css" />
+  <link rel="stylesheet" href="../sneat-1.0.0/assets/css/demo.css" />
+  <link rel="stylesheet" href="../sneat-1.0.0/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+  <script src="../sneat-1.0.0/assets/vendor/js/helpers.js"></script>
+  <script src="../sneat-1.0.0/assets/js/config.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+</head>
+
+<body>
+  <!-- Layout wrapper -->
+  <div class="layout-wrapper layout-without-menu">
+    <div class="layout-container">
+      <!-- Layout page -->
+      <div class="layout-page">
+       <!-- Navbar -->
+       <nav class="layout-navbar navbar navbar-expand-xl align-items-center bg-navbar-theme" id="layout-navbar">
+        <div class="container-fluid">
+          <!-- Markenname und Logo -->
+          <a class="navbar-brand" href="#">
+            <img src="Logo_HTL.svg" alt="Logo" height="30">
+          </a>
+
+          <!-- Toggle-Button für kleine Bildschirme -->
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <!-- Navbar-Inhalte -->
+          <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+              <!-- Navigationslinks -->
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Menu
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="rundschreiben.html">Rundschreiben</a></li>
+                  <li><a class="dropdown-item" href="beitraege.html">Beiträge</a></li>
+                  <li><a class="dropdown-item" href="mitglieder.html">Mitglieder</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="export_excel.html">Excel-Export</a></li>
+                  <li><a class="dropdown-item" href="import_excel.html">Excel-Import</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="login.html">Abmelden</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <!--/ Navbar -->
+
+        <!-- Content wrapper -->
+        <div class="content-wrapper">
+          <div class="container-xxl flex-grow-1 container-p-y">
+            <h4 class="fw-bold py-3 mb-4">Excel-Import</h4>
+
+            <!-- Import Section -->
+            <div class="card">
+              <div class="card-body">
+                <div class="mb-3">
+                  <label for="fileUpload" class="form-label">Excel-Datei hochladen:</label>
+                  <input type="file" id="fileUpload" class="form-control" accept=".xlsx, .xls" />
+                </div>
+                <div class="table-responsive mt-4">
+                  <table class="table table-bordered">
+                    <thead class="table-light">
+                      <tr>
+                        <th>Klasse</th>
+                        <th>Zuname</th>
+                        <th>Vorname</th>
+                        <th>Heim-PLZ</th>
+                        <th>Heim-Ort</th>
+                        <th>Heim-Straße</th>
+                      </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                      <!-- Dynamisch eingefügte Vorschau -->
+                    </tbody>
+                  </table>
+                </div>
+                <button class="btn btn-primary mt-3" id="uploadToDb" disabled>In DB hochladen</button>
+              </div>
+            </div>
+          </div>
+          <!-- Footer -->
+          <footer class="content-footer footer bg-footer-theme"></footer>
+        </div>
+        <!--/ Content wrapper -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Core JS -->
+  <script src="../sneat-1.0.0/assets/vendor/libs/jquery/jquery.js"></script>
+  <script src="../sneat-1.0.0/assets/vendor/libs/popper/popper.js"></script>
+  <script src="../sneat-1.0.0/assets/vendor/js/bootstrap.js"></script>
+  <script src="../sneat-1.0.0/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+  <script>
+    const fileInput = document.getElementById('fileUpload');
+    const tableBody = document.getElementById('tableBody');
+    const uploadButton = document.getElementById('uploadToDb');
+
+    fileInput.addEventListener('change', async (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = (event) => {
+    const data = new Uint8Array(event.target.result);
+    const workbook = XLSX.read(data, { type: 'array' });
+
+    const sheetName = workbook.SheetNames[0];
+    const worksheet = workbook.Sheets[sheetName];
+    const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+
+    tableBody.innerHTML = ''; // Leere Tabelle zurücksetzen
+    let error = false;
+
+    jsonData.slice(1).forEach((row, index) => {
+      if (row.length >= 6) { 
+        // Lese Daten aus der Zeile
+        const [klasse, zuname, vorname, heimPlz, heimOrt, heimStr] = row;
+
+        // Füge Daten zur Tabelle hinzu
+        tableBody.innerHTML += `
+          <tr>
+            <td>${klasse || ''}</td>
+            <td>${zuname || ''}</td>
+            <td>${vorname || ''}</td>
+            <td>${heimPlz || ''}</td>
+            <td>${heimOrt || ''}</td>
+            <td>${heimStr || ''}</td>
+          </tr>
+        `;
+      } else {
+        error = true;
+        console.error(`Zeile ${index + 2} hat weniger als 6 Spalten:`, row);
+      }
+    });
+
+    if (error) {
+      alert('Einige Zeilen in der Datei haben weniger als 6 Spalten. Bitte überprüfen Sie die Daten.');
+    }
+
+    uploadButton.disabled = !jsonData.length;
+  };
+
+  reader.readAsArrayBuffer(file);
+});
+</script>
+
+</body>
+</html>

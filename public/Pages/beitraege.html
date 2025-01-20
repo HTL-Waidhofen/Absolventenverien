@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="de" class="light-style layout-navbar-fixed layout-menu-fixed " dir="ltr" data-theme="theme-default"
+    data-assets-path="../../assets/" data-template="vertical-menu-template-starter">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Beiträge</title>
+    <link rel="stylesheet" href="../sneat-1.0.0/assets/vendor/css/theme-default.css"
+        class="template-customizer-theme-css" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="Logo_HTL.svg" />
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons. Uncomment required icon fonts -->
+    <link rel="stylesheet" href="../sneat-1.0.0/assets/vendor/fonts/boxicons.css" />
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="../sneat-1.0.0/assets/vendor/css/core.css" />
+    <link rel="stylesheet" href="../sneat-1.0.0/assets/vendor/css/theme-default.css" />
+    <link rel="stylesheet" href="../sneat-1.0.0/assets/css/demo.css" />
+
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="../sneat-1.0.0/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+
+    <!-- Helpers -->
+    <script src="../sneat-1.0.0/assets/vendor/js/helpers.js"></script>
+
+    <!-- Config -->
+    <script src="../sneat-1.0.0/assets/js/config.js"></script>
+</head>
+
+<body>
+    <!-- Core JS -->
+    <script src="../sneat-1.0.0/assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="../sneat-1.0.0/assets/vendor/libs/popper/popper.js"></script>
+    <script src="../sneat-1.0.0/assets/vendor/js/bootstrap.js"></script>
+    <script src="../sneat-1.0.0/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-without-menu">
+
+        <!-- Layout container -->
+        <div class="layout-container">
+
+            <!-- Layout page -->
+            <div class="layout-page">
+
+                <!-- Navbar -->
+                <nav class="layout-navbar navbar navbar-expand-xl align-items-center bg-navbar-theme" id="layout-navbar">
+                    <div class="container-fluid">
+                    <!-- Markenname und Logo -->
+                    <a class="navbar-brand" href="#">
+                        <img src="Logo_HTL.svg" alt="Logo" height="30">
+                    </a>
+        
+                    <!-- Toggle-Button für kleine Bildschirme -->
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+        
+                    <!-- Navbar-Inhalte -->
+                    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                        <ul class="navbar-nav">
+                        <!-- Navigationslinks -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Menu
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="rundschreiben.html">Rundschreiben</a></li>
+                            <li><a class="dropdown-item" href="beitraege.html">Beiträge</a></li>
+                            <li><a class="dropdown-item" href="mitglieder.html">Mitglieder</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="export_excel.html">Excel-Export</a></li>
+                            <li><a class="dropdown-item" href="import_excel.html">Excel-Import</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="login.html">Abmelden</a></li>
+                            </ul>
+                        </li>
+                        </ul>
+                    </div>
+                    </div>
+                </nav>
+                <!--/ Navbar -->
+
+                <!-- Content wrapper -->
+                <div class="content-wrapper">
+
+                        <!-- Content -->
+                        <div class="container-xxl flex-grow-1 container-p-y">
+
+                                <!-- Form Section -->
+                                <div class="container mt-4">
+                                        <div class="row g-3">
+                                        <!-- Linke Spalte -->
+                                        <div class="col-md-6">
+                                                <div class="form-section">
+                                                <h5>Beiträge</h5>
+                                                <form id="searchForm">
+                                                        <label for="erlagscheinnummer" class="form-label">Erlagscheinnummer:</label>
+                                                        <input type="text" class="form-control" id="erlagscheinnummer" name="erlagscheinnummer">
+                                                        <label for="erlagscheinnummer" class="form-label">Name:</label>
+                                                        <input type="text" class="form-control" id="suche_name" name="suche_name">
+                                                        <button type="button" class="btn btn-primary mt-2" onclick="searchBeitraege()">Suchen</button>
+                                                </form>
+                                                </div>
+                                        </div>
+
+                                        <!-- Rechte Spalte -->
+                                        <div class="col-md-6">
+                                                <div class="form-section">
+                                                <h5>Neue Einzahlung</h5>
+                                                <form id="einzahlungForm">
+                                                        <label for="einzahlungBetrag" class="form-label">Betrag:</label>
+                                                        <input type="text" class="form-control" id="einzahlungBetrag" name="einzahlungBetrag">
+                                                        <button type="button" class="btn btn-primary mt-2" onclick="createEinzahlung()">OK</button>
+                                                </form>
+                                                </div>
+                                        </div>
+                                        </div>
+
+                                        <!-- Datenbank Darstellung -->
+                                        <div class="db-section mt-4">
+                                        <h5>Gefundene Beiträge</h5>
+                                        <select id="beitraege" name="beitraege" size="10" class="form-select" style="width: 100%;"></select>
+                                        </div>
+                                </div>
+                        </div>
+                        <!--/ Content -->
+                    <!-- Footer -->
+                    <footer class="content-footer footer bg-footer-theme"></footer>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function searchBeitraege() {
+                // Implement search functionality here
+                // Example: Fetch data from server and populate the ListBox
+                const erlagscheinnummer = document.getElementById('erlagscheinnummer').value;
+                console.log('Searching for Beiträge with Erlagscheinnummer:', erlagscheinnummer);
+                // Populate the ListBox with found Beiträge
+        }
+
+        function createEinzahlung() {
+                // Implement create Einzahlung functionality here
+                const betrag = document.getElementById('einzahlungBetrag').value;
+                console.log('Creating new Einzahlung with Betrag:', betrag);
+                // Verify and submit the new Einzahlung
+        }
+    </script>
+</body>
+
+</html>
