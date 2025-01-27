@@ -1,0 +1,89 @@
+DROP DATABASE IF EXISTS absolventenverein;
+CREATE DATABASE absolventenverein;
+USE absolventenverein;
+
+CREATE TABLE t_absolvent (
+    vorname CHAR(50),
+    nachname CHAR(50),
+    anrede CHAR(4),
+    erlagscheinNr DECIMAL(12,0),
+    fortlaufendeNr INT(5) PRIMARY KEY,
+    verstorben BOOLEAN,
+    abgemeldet BOOLEAN,
+    akademischer_Titel CHAR(20),
+    bemerkung CHAR(255)
+);
+
+CREATE TABLE t_abschluss (
+    FK_fortlaufendeNr INT(5),
+    abschlussklasse CHAR(10),
+    abschlussjahr INT,
+    PRIMARY KEY (FK_fortlaufendeNr, abschlussjahr),
+    FOREIGN KEY (FK_fortlaufendeNr) REFERENCES t_absolvent(fortlaufendeNr)
+);
+
+CREATE TABLE t_einzahlung (
+    FK_fortlaufendeNr INT(5),
+    betrag DECIMAL(5,2),
+    datum DATE,
+    PRIMARY KEY (FK_fortlaufendeNr, datum),
+    FOREIGN KEY (FK_fortlaufendeNr) REFERENCES t_absolvent(fortlaufendeNr),
+    CONSTRAINT chk_betrag_pos CHECK (betrag > 0)
+);
+
+CREATE TABLE t_versand (
+    FK_fortlaufendeNr INT(5),
+    derzeitige_adresse CHAR(150),
+    PLZ INT(4),
+    urspruengliche_adresse CHAR(150),
+    urspruengliche_PLZ INT(4),
+    email CHAR(50),
+    versand_post BOOLEAN DEFAULT TRUE,
+    versand_email BOOLEAN DEFAULT FALSE,
+    versand_newsletter BOOLEAN,
+    PRIMARY KEY (FK_fortlaufendeNr),
+    FOREIGN KEY (FK_fortlaufendeNr) REFERENCES t_absolvent(fortlaufendeNr)
+);
+
+CREATE TABLE t_abteilung (
+    ID INT(2) PRIMARY KEY,
+    Bezeichnung CHAR(50),
+    Kuerzel CHAR(10)
+);
+
+INSERT INTO t_abteilung (ID, Bezeichnung, Kuerzel) VALUES
+(11, 'Maschinenbau Fertigungstechnik', 'MF'),
+(12, 'Maschinenbau', 'M'),
+(13, 'Automatisierungstechnik', 'A'),
+(14, 'Elektronik und Feinmechanik', 'EF'),
+(15, 'Elektronik', 'E'),
+(16, 'Bautechnik', 'B'),
+(17, 'Wirtschaftsinformatik', 'W'),
+(21, 'Fachschule Elektrotechnik', 'FET'),
+(22, 'Fachschule Maschinenbau Fertigungstechnik', 'FMBF'),
+(23, 'Höhere Maschinenbau Industrieanlagenbau', 'HMIA'),
+(24, 'Höhere Elektrotechnik Energietechnik', 'HETE'),
+(25, 'Höhere Elektrotechnik Informationstechnik', 'HETI'),
+(26, 'Höhere Elektrotechnik Technische Informatik', 'HETI'),
+(27, 'Höhere Elektrotechnik Regelungstechnik', 'HETR'),
+(28, 'Höhere Wirtschaftsinformatik Innovation', 'HWII'),
+(29, 'Höhere Wirtschaftsinformatik Management', 'HWIM'),
+(99, 'Keine Abteilung oder Abteilung unbekannt', 'k.A.');
+
+
+DELIMITER //
+
+CREATE TRIGGER trg_update_versand_newsletter
+AFTER UPDATE ON t_absolvent
+FOR EACH ROW
+BEGIN
+    -- Überprüfe, ob das Attribut verstorben auf true gesetzt wurde
+    IF NEW.verstorben = TRUE AND OLD.verstorben = FALSE THEN
+        -- Aktualisiere das Attribut versand_newsletter in der Tabelle t_versand auf false
+        UPDATE t_versand
+        SET versand_newsletter = FALSE
+        WHERE FK_fortlaufendeNr = NEW.fortlaufendeNr;
+    END IF;
+END //
+
+DELIMITER ;

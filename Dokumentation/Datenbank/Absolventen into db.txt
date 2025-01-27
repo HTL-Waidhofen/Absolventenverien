@@ -1,0 +1,40 @@
+DROP TEMPORARY TABLE IF EXISTS tmp_csv_import;
+CREATE TEMPORARY TABLE tmp_csv_import (
+    col1 VARCHAR(255),
+    col2 VARCHAR(255),
+    col3 VARCHAR(255),
+    col4 VARCHAR(255),
+    col5 VARCHAR(255),
+    col6 VARCHAR(255),
+    col7 VARCHAR(255),
+    col8 VARCHAR(255),
+    col9 VARCHAR(255),
+    col10 VARCHAR(255),
+    col11 VARCHAR(255),
+    col12 VARCHAR(255),
+    col13 VARCHAR(255),
+    col14 VARCHAR(255),
+    col15 VARCHAR(255),
+    col16 VARCHAR(255),
+    col17 VARCHAR(255),
+    col18 VARCHAR(255),
+    col19 VARCHAR(255),
+    col20 VARCHAR(255),
+    col21 VARCHAR(255),
+    col22 VARCHAR(255),
+    col23 VARCHAR(255),
+    col24 VARCHAR(255),
+    col25 VARCHAR(255)
+);
+
+SET NAMES utf8mb4;
+LOAD DATA INFILE 'C:/xampp/mysql/Absolventen_utf8.csv'
+INTO TABLE tmp_csv_import
+FIELDS TERMINATED BY ';'
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS;
+
+INSERT INTO t_absolvent (vorname, nachname, anrede, erlagscheinNr, fortlaufendeNr, verstorben, abgemeldet, akademischer_Titel, bemerkung)
+SELECT col12, col13, col10, col1, col2, col25, col9, col11, col19
+FROM tmp_csv_import;

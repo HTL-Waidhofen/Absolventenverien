@@ -1,0 +1,39 @@
+-- Erstelle den Benutzer AV_User 
+CREATE OR REPLACE USER 'AV_User'@'%' IDENTIFIED BY 'sn';
+
+-- Vergeben von Lese-, Schreib-, Lösch- und Update-Rechten auf den Tabellen t_absolvent, t_versand, t_einzahlung und t_abschluss
+GRANT SELECT, INSERT, UPDATE, DELETE ON absolventenverein.t_absolvent TO 'AV_User'@'%';
+GRANT SELECT, INSERT, UPDATE, DELETE ON absolventenverein.t_versand TO 'AV_User'@'%';
+GRANT SELECT, INSERT, UPDATE, DELETE ON absolventenverein.t_einzahlung TO 'AV_User'@'%';
+GRANT SELECT, INSERT, UPDATE, DELETE ON absolventenverein.t_abschluss TO 'AV_User'@'%';
+
+-- Vergeben von nur Lese-Rechten auf die Tabelle t_abteilung
+GRANT SELECT ON absolventenverein.t_abteilung TO 'AV_User'@'%';
+
+-- Anwenden der Berechtigungen
+FLUSH PRIVILEGES;
+
+-- Create Connect_User
+DROP USER IF EXISTS 'Connect_User'@'%';
+CREATE USER 'Connect_User'@'%' IDENTIFIED BY 'sicheresPasswort123';
+
+-- Revoke any previous privileges
+REVOKE ALL PRIVILEGES ON *.* FROM 'Connect_User'@'%';
+
+-- Grant 'USAGE' privilege, allowing the user to connect
+GRANT USAGE ON *.* TO 'Connect_User'@'%';
+
+-- Grant the ability to access the 'absolventenverein' database, but without any privileges on tables
+GRANT SHOW DATABASES ON *.* TO 'Connect_User'@'%';
+
+-- Apply changes
+FLUSH PRIVILEGES;
+
+-- Erstelle den Admin-Benutzer 'admin_user' mit einem Passwort
+CREATE OR REPLACE USER 'Admin_User'@'%' IDENTIFIED BY 'adminPasswort123';
+
+-- Gewähre dem Admin-Benutzer alle Rechte auf der Datenbank 'absolventenverein'
+GRANT ALL PRIVILEGES ON absolventenverein.* TO 'Admin_User'@'%';
+
+-- Berechtigungen anwenden
+FLUSH PRIVILEGES;
